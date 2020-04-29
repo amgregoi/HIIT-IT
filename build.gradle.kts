@@ -59,4 +59,14 @@ tasks.withType<DependencyUpdatesTask> {
     }
 }
 
+tasks.register<Exec>("ktlint") {
+    println("Running :: gradlew ktlintFormat")
+    workingDir("$projectDir")
+    if (System.getProperty("os.name").toLowerCase(java.util.Locale.ROOT).contains("windows")) {
+        commandLine("cmd", "/c", "gradlew ktlintFormat")
+    } else {
+        commandLine("./gradlew ktlintFormat")
+    }
+}
+
 fun isNonStable(version: String) = "^[0-9,.v-]+(-r)?$".toRegex().matches(version).not()
